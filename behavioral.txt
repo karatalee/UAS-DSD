@@ -1,0 +1,50 @@
+module behavioral(
+	input clk,
+	input rw,
+	input en,
+	input [7:0] addr,
+	output reg [7:0] data
+);
+
+always@(posedge clk)
+begin
+	if(en==1'b1)
+	begin
+		if(rw==1'b0)
+		begin
+			case(addr)
+				8'h00:data<=8'b0000_1111;
+				8'h01:data<=8'b1111_0000;
+				8'h02:data<=8'b1100_0011;
+				8'h03:data<=8'b1100_1100;
+			endcase
+		end
+	end
+	else
+		data<=8'b0000_0000; //default
+endmodule
+module bench;
+	reg clk;
+	reg [7:0] fetchaddr;
+	wire rw,en;
+	wire [7:0] addr, data;
+	
+	memoryInterface(clk,fetchaddr,rw,en,addr,data);
+	behavioral rom(clk,rw,en,addr,data);
+
+	initial begin
+		clk = 0;
+	end
+
+	always
+		#5 clk = !clk;
+	
+	initial begin
+		#0 fetchaddr = 1;
+		#15 fetchaddr = 1;
+		#15 fetchaddr = 3;
+		#15 fetchaddr = 2;
+		#15 fetchaddr = 4;
+		#15 fetchaddr = 5;
+	end
+endmodule	

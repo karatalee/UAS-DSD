@@ -1,0 +1,23 @@
+module memory_int (counter, data, clk, address);
+input counter, data, clk;
+output reg address;
+reg temp;
+reg flag = 0;
+
+
+always @ (posedge clk)
+	begin
+	
+		if(flag == 0)
+			begin
+				address <= counter;
+				flag <= 1;
+			end
+		else
+			begin
+				temp <= data;
+				flag <= 0;
+			end
+	//masih harus diapa-apain
+	end
+endmodule
