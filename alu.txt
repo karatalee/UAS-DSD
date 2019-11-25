@@ -1,0 +1,8 @@
+module alu(en,clk,mode,in_a,in_b,out,flag_zero,_flag_carry);
+
+	wire enable, clk;
+	wire [2:0] mode;
+	wire [N-1:0] in_a, in_b;
+	output wire [N-1:0] out;
+	output reg flag_zero, flag_carry;
+
