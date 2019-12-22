@@ -1,7 +1,0 @@
-module memoryInterface(clk,fetchaddr,addr,rw,en,data);
-	input clk;
-	input [7:0] fetchaddr, addr;
-	input rw, en;
-	output reg data;
-
-always@(posedge clk)
